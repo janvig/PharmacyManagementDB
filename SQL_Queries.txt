@@ -1,0 +1,61 @@
+﻿Queries in SQL
+
+
+1. List details of all antibiotics available at the store
+
+
+SELECT * FROM product AS p JOIN medicine AS m on(p.p_id=m.p_id) where med_category = 'Antibiotic';
+
+
+
+
+2. List average price of the cough syrups available at the shop
+
+
+SELECT AVG(cost_price) from product NATURAL JOIN medicine NATURAL JOIN bought_from WHERE med_category = 'Antibiotic';
+
+
+
+
+3. List the details of a bill by patient with customerID ‘03PD’ on 21-01-2019
+
+
+SELECT s.*, p.p_name FROM sold_to AS s JOIN product AS p on (s.p_id=p.p_id) WHERE c_id = '03PD' AND date_of_sale = '21/01/2019';
+
+
+
+
+4. List the details of medicines which have expired 
+
+
+SELECT p.p_id, p.p_name, p.stock, p.manu_id from product as p join batch as b on (p.p_id=b.p_id) where dateofexp <= (select current_date);
+
+
+5. List the details of all the medicines sold to the shop by distributor X(Dist_ID = ‘SP0001’)
+
+
+SELECT b.* FROM bought_from AS b JOIN product AS p in (b.p_id=p.p_id) where d_id = 'SP0001';
+
+
+
+
+6. List the name of all the medicines manufactured by manufacturer X(manuID = ‘12334455566’)
+
+
+SELECT * FROM product where manu_id = '12334455566';
+
+
+
+
+7. Show all the sales of the shop from the month April 2018
+
+
+SELECT * FROM sold_to WHERE date_of_sale >= '01/04/2018' AND date_of_sale <= '30/04/2018';
+
+
+
+
+8. List all the distributors from the city Bangalore
+
+
+SELECT * FROM distributor WHERE d_city = 'Bangalore';
